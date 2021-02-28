@@ -9,16 +9,33 @@ namespace FInchRussell
 {
     class Program
     {
+        // **********************************************************************
+        // *Title:              Finch M3S2                                      *    
+        // *Application Type:   Console, Finch                                  *
+        // *Author:             Arlt, Russell                                   *
+        // *Description:        Application that gathers data using the Finch   *
+        // *Date Created:       2/26/2021                                       *
+        // *Date Revised:       Constantly                                      *
+        // **********************************************************************
+
+        #region MAIN
+        /// <summary>
+        /// The first screen
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             SetTheme();
 
             DisplayWelcomeScreen();
             DisplayMainMenuScreen();
-
         }
+        #endregion
 
         #region SET THEME
+        /// <summary>
+        /// The beautiful colors of screen and text.
+        /// </summary>
         static void SetTheme()
         {
             Console.ForegroundColor = ConsoleColor.DarkCyan;
@@ -27,6 +44,9 @@ namespace FInchRussell
         #endregion
 
         #region DISPLAY MENU SCREEN
+        /// <summary>
+        /// Main Menu Screen
+        /// </summary>
         static void DisplayMainMenuScreen()
         {
             //
@@ -92,6 +112,10 @@ namespace FInchRussell
         #endregion
 
         #region USER PROGRAMMING DISPLAY MENU SCREEN
+        /// <summary>
+        /// Secret area. NO GO
+        /// </summary>
+        /// <param name="Reznor"></param>
         static void UserProgrammingDisplayMenuScreen(Finch Reznor)
         {
             DisplayHeader("You shouldn't be here yet!");
@@ -104,6 +128,10 @@ namespace FInchRussell
         #endregion
 
         #region ALARM SYSTEM DISPLAY MENU SCREEN
+        /// <summary>
+        /// Probably be a real loud one here.
+        /// </summary>
+        /// <param name="Reznor"></param>
         static void AlarmSystemDisplayMenuScreen(Finch Reznor)
         {
             DisplayHeader("You Shouldn't BE HERE");
@@ -116,6 +144,10 @@ namespace FInchRussell
         #endregion
 
         #region TALENT SHOW DISPLAY MENU SCREEN
+        /// <summary>
+        /// Our beautiful Finch makes music and lights and dances.
+        /// </summary>
+        /// <param name="Reznor"></param>
         static void TalentShowDisplayMenuScreen(Finch Reznor)
         {
             Console.CursorVisible = true;
@@ -164,6 +196,10 @@ namespace FInchRussell
         #endregion
 
         #region DATA RECORDER DISPLAY MENU SCREEN
+        /// <summary>
+        /// The data recorder display
+        /// </summary>
+        /// <param name="Reznor"></param>
         static void DataRecorderDisplayMenuScreen(Finch Reznor)
         {
             // record temps and put them in array, then go back and display that array. 
@@ -171,7 +207,7 @@ namespace FInchRussell
             int numberOfDataPoints = 0;
             double dataPointFrequency = 0; // double because we ask for seconds.
             double[] temperatures = null;
-
+            
             Console.CursorVisible = true;
 
             bool quitMenu = false;
@@ -184,6 +220,7 @@ namespace FInchRussell
                 Console.WriteLine("\tb) Frequency of Data Points");
                 Console.WriteLine("\tc) Get Data");
                 Console.WriteLine("\td) Show Data");
+                Console.WriteLine("\te) Light Data");
                 Console.WriteLine("\tq) Main Menu");
                 Console.Write("\t\tEnter Choice Please:");
                 menuChoice = Console.ReadLine().ToLower();
@@ -209,7 +246,7 @@ namespace FInchRussell
                         break;
 
                     case "e":
-
+                        GetLightData(Reznor);
                         break;
 
                     case "f":
@@ -225,8 +262,12 @@ namespace FInchRussell
 
         }
         #endregion
-
+        
         #region DATA RECORDER DISPLAY DATA
+        /// <summary>
+        /// Shows Data
+        /// </summary>
+        /// <param name="temperatures"></param>
         static void DataRecorderDisplayData(double[] temperatures)
         {
             DisplayHeader("Show Your Data");
@@ -238,6 +279,10 @@ namespace FInchRussell
         #endregion
 
         #region DATA RECORDER DISPLAY TABLE
+        /// <summary>
+        /// The Display Table, got that celsius to fahrenheit!
+        /// </summary>
+        /// <param name="temperatures"></param>
         static void DataRecorderDisplayTable(double[] temperatures)
         {
             //
@@ -268,6 +313,11 @@ namespace FInchRussell
         #endregion
 
         #region CONVERT CELSIUS TO FAHRENHEIT
+        /// <summary>
+        /// Method exclusively for Converting Celsius to Fahrenheit
+        /// </summary>
+        /// <param name="celsius"></param>
+        /// <returns></returns>
         static double ConvertCelsiusToFahrenheit(double celsius)
         {
             return celsius * 9 / 5 + 32;
@@ -275,6 +325,13 @@ namespace FInchRussell
         #endregion
 
         #region DATA RECORDER DISPLAY GET TEMPERATURE DATA
+        /// <summary>
+        /// How we get the data from the user. 
+        /// </summary>
+        /// <param name="numberOfDataPoints"></param>
+        /// <param name="dataPointFrequency"></param>
+        /// <param name="Reznor"></param>
+        /// <returns>Temperatures</returns>
         static double[] DataRecorderDisplayGetTemperatureData(int numberOfDataPoints, double dataPointFrequency, Finch Reznor)
         {
             double[] temperatures = new double[numberOfDataPoints];
@@ -363,7 +420,42 @@ namespace FInchRussell
         }
         #endregion
 
+        #region GET  AND DISPLAY LIGHT DATA
+        /// <summary>
+        /// This is just for getting light data in an array
+        /// </summary>
+        /// <param name="Reznor"></param>
+        /// <returns> The reading of both amounts of light!</returns>
+        public static int[] GetLightData(Finch Reznor)
+        {
+           DisplayHeader("Reznor will see how much light is nearby!");
+           DisplayContinuePromt();
+
+           int[] lightSensor = Reznor.getLightSensors();
+            
+
+            for (int index = 0; index < lightSensor.Length; index++)
+            {               
+               Console.WriteLine($"\tHere we go!  {lightSensor[index]}");
+            }
+
+            DisplayContinuePromt();
+
+            return lightSensor;
+        //int leftLight;
+        //leftLight = Reznor.getLeftLightSensor();
+        //    Console.WriteLine($"SHOW ME LIGHT {leftLight}");
+        //    Console.ReadKey();
+
+
+        }
+        #endregion
+
         #region DANCE MENU  
+        /// <summary>
+        /// Dance Party!
+        /// </summary>
+        /// <param name="Reznor"></param>
         static void DanceMenu(Finch Reznor)
         {
             Console.CursorVisible = false;
@@ -386,6 +478,10 @@ namespace FInchRussell
         #endregion
 
         #region MIX IT UP
+        /// <summary>
+        /// Moving and lights!
+        /// </summary>
+        /// <param name="Reznor"></param>
         static void MixItUpMenu(Finch Reznor)
         {
             Console.CursorVisible = false;
@@ -447,6 +543,10 @@ namespace FInchRussell
         #endregion
 
         #region LIGHT AND SOUND
+        /// <summary>
+        /// A for loop to create light and sound
+        /// </summary>
+        /// <param name="Reznor"></param>
         static void LightAndSound(Finch Reznor)
         {
             Console.CursorVisible = false;
@@ -466,6 +566,11 @@ namespace FInchRussell
         #endregion
 
         #region DISPLAY CONNECT FINCH ROBOT
+        /// <summary>
+        /// This is how the FInch connects to the application
+        /// </summary>
+        /// <param name="Reznor"></param>
+        /// <returns>That the finch is connected</returns>
         static bool DisplayConnectFinchRobot(Finch Reznor)
         {
             Console.CursorVisible = false;
@@ -508,6 +613,10 @@ namespace FInchRussell
         #endregion
 
         #region DISPLAY MENU PROMPT
+        /// <summary>
+        /// Our menu calling method
+        /// </summary>
+        /// <param name="menuName"></param>
         static void DisplayMenuPrompt(string menuName)
         {
             Console.WriteLine($"\n\tPress any key to go back to the {menuName} Menu");
@@ -516,6 +625,10 @@ namespace FInchRussell
         #endregion
 
         #region DISPLAY DISCONNECT FINCH ROBOT
+        /// <summary>
+        /// How we disconnect the Finchy
+        /// </summary>
+        /// <param name="Reznor"></param>
         //RUSSELL YOU CHANGED BOOL TO VOID ON DISPLAYDISCONNECTFINCHROBOT
         static void DisplayDisconnectFinchRobot(Finch Reznor)
         {
@@ -531,6 +644,9 @@ namespace FInchRussell
         #endregion
 
         #region DISPLAY WELCOME SCREEN
+        /// <summary>
+        /// VELCOME TO OUR APPLICATION
+        /// </summary>
         static void DisplayWelcomeScreen()
         {
             Console.CursorVisible = false;
@@ -544,6 +660,10 @@ namespace FInchRussell
         #endregion
 
         #region DISPLAY CLOSING SCREEN
+        /// <summary>
+        /// GOODBYE TIME
+        /// </summary>
+        /// <param name="Reznor"></param>
         static void DisplayClosingScreen(Finch Reznor)
         {
             Console.CursorVisible = false;
@@ -556,6 +676,10 @@ namespace FInchRussell
         #endregion
 
         #region DISPLAY HEADER
+        /// <summary>
+        /// Method called to display a header
+        /// </summary>
+        /// <param name="headerText"></param>
         static void DisplayHeader(string headerText)
         {
 
@@ -567,6 +691,9 @@ namespace FInchRussell
         #endregion
 
         #region DISPLAY CONTINUE PROMPT
+        /// <summary>
+        /// A readkey method
+        /// </summary>
         static void DisplayContinuePromt()
         {   //
             // pause for user
